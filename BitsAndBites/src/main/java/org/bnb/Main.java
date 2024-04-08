@@ -1,10 +1,33 @@
 package org.bnb;
 
+import org.bnb.Classes.Recipe;
+import org.bnb.Database.DAO.RecipeDAOImpl;
+import org.bnb.Database.DAO.interfaces.RecipeDAO;
+import org.bnb.Database.DatabaseHandler;
+
+import java.sql.SQLException;
+import java.util.List;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         System.out.println("Hello World");
         System.out.println("Das ist ein Test");
+
+        //DB Test
+        DatabaseHandler.connect();
+        RecipeDAOImpl recipeDAO = new RecipeDAOImpl();
+        List<Recipe> rez = recipeDAO.getAllRecipes();
+
+        if (rez.isEmpty()) {
+            System.out.println("Keine Rezepte gefunden.");
+        } else {
+            System.out.println("Liste aller Rezepte:");
+            for (Recipe recipe : rez) {
+                System.out.println(recipe.toString());
+            }
+        }
+
     }
 }

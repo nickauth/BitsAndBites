@@ -93,4 +93,22 @@ public class Recipe {
     public void setIngredientListID(int ingredientListID) {
         this.ingredientListID = ingredientListID;
     }
+
+    public void setId(int rid) {
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + rid + "\n" +
+                "Name: " + rName + "\n" +
+                "Beschreibung: " + description + "\n" +
+                "Schwierigkeitsgrad: " + rLvl + "\n" +
+                "Dauer: " + durationLvlID + "\n" +
+                "Kommentar: " + userComment + "\n" +
+                "Mahlzeit-ID: " + mealID + "\n" +
+                "Ist vegan: " + isVegan + "\n" +
+                "Ist vegetarisch: " + isVegetarian + "\n" +
+                "Zutatenliste-ID: " + ingredientListID;
+    }
+
 }

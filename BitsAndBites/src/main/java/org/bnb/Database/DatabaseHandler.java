@@ -5,28 +5,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseHandler {
-    private static final String URL = "src/main/resources/BitsNBitesDB.db";
-    private Connection connection;
+  public static Connection connect(){
+      Connection con = null;
+      try {
+          Class.forName("org.sqlite.JDBC");
+          con = DriverManager.getConnection("jdbc:sqlite:D:\\Dokumente\\Uni\\5. Semester\\SWEP\\Git\\BitsAndBites\\src\\main\\resources\\BitsNBitesDB.db");
+          System.out.println("Connected");
+      } catch (ClassNotFoundException | SQLException e){
+          System.out.println(e+"");
+      }
+      return con;
+  }
 
-    private static DatabaseHandler instance;
-
-    private DatabaseHandler() {
-        try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection(URL);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static DatabaseHandler getInstance() {
-        if (instance == null) {
-            instance = new DatabaseHandler();
-        }
-        return instance;
-    }
-
-    public Connection getConnection() {
-        return connection;
-    }
 }
