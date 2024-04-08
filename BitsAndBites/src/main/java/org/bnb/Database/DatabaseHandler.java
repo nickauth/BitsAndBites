@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseHandler {
-    private static final String URL = "jdbc:sqlite:/Pfad/Zu/Deiner/Datenbank.db";
+    private static final String URL = "src/main/resources/BitsNBitesDB.db";
     private Connection connection;
 
     private static DatabaseHandler instance;
