@@ -12,6 +12,21 @@ public class Recipe {
     private int isVegetarian;
     private int ingredientListID;
 
+    public Recipe() {
+    }
+
+    public Recipe(int rid, String rName, String description, int rLvl, int durationLvlID, String userComment, int mealID, int isVegan, int isVegetarian, int ingredientListID) {
+        this.rid = rid;
+        this.rName = rName;
+        this.description = description;
+        this.rLvl = rLvl;
+        this.durationLvlID = durationLvlID;
+        this.userComment = userComment;
+        this.mealID = mealID;
+        this.isVegan = isVegan;
+        this.isVegetarian = isVegetarian;
+        this.ingredientListID = ingredientListID;
+    }
 
     //Getter and Setter methods
     public int getRid() {

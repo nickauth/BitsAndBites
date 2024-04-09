@@ -9,7 +9,7 @@ public class DatabaseHandler {
       Connection con = null;
       try {
           Class.forName("org.sqlite.JDBC");
-          con = DriverManager.getConnection("jdbc:sqlite:D:\\Dokumente\\Uni\\5. Semester\\SWEP\\Git\\BitsAndBites\\src\\main\\resources\\BitsNBitesDB.db");
+          con = DriverManager.getConnection("jdbc:sqlite:BitsAndBites/src/main/resources/BitsNBitesDB.db");
           System.out.println("Connected");
       } catch (ClassNotFoundException | SQLException e){
           System.out.println(e+"");

@@ -16,8 +16,9 @@ public class Main {
         System.out.println("Das ist ein Test");
 
         //DB Test
-        DatabaseHandler.connect();
-        RecipeDAOImpl recipeDAO = new RecipeDAOImpl();
+
+        RecipeDAOImpl recipeDAO = new RecipeDAOImpl(DatabaseHandler.connect());
+
         List<Recipe> rez = recipeDAO.getAllRecipes();
 
         if (rez.isEmpty()) {
@@ -26,6 +27,7 @@ public class Main {
             System.out.println("Liste aller Rezepte:");
             for (Recipe recipe : rez) {
                 System.out.println(recipe.toString());
+                System.out.println("_______________");
             }
         }
 
