@@ -7,6 +7,8 @@ import java.util.List;
 public interface IngredientsListDAO {
     IngredientsList getIngredientsListById(int ingredientsListId);
 
+    List<IngredientsList> getIngredientsListByRecipeId(int recipeId);
+
     List<IngredientsList> getAllIngredientsLists();
 
     void addIngredientsList(IngredientsList ingredientsList);

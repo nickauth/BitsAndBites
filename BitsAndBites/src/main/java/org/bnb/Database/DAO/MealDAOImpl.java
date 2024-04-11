@@ -17,15 +17,26 @@ public class MealDAOImpl implements MealDAO {
 
     @Override
     public Meal getMealById(int mealId) {
-        return null;
+        Meal meal = null;
+        String query = "SELECT * FROM Meal WHERE MID = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, mealId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                meal = extractMealFromResultSet(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return meal;
     }
 
     @Override
     public List<Meal> getAllMeals() {
         List<Meal> meals = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM Meal");
+        String query = "SELECT * FROM Meal";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
                 Meal meal = extractMealFromResultSet(resultSet);
                 meals.add(meal);
@@ -38,17 +49,36 @@ public class MealDAOImpl implements MealDAO {
 
     @Override
     public void addMeal(Meal meal) {
-
+        String query = "INSERT INTO Meal (Description) VALUES (?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, meal.getDescription());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void updateMeal(Meal meal) {
-
+        String query = "UPDATE Meal SET Description = ? WHERE MID = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, meal.getDescription());
+            preparedStatement.setInt(2, meal.getMid());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void deleteMeal(int mealId) {
-
+        String query = "DELETE FROM Meal WHERE MID = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, mealId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private Meal extractMealFromResultSet(ResultSet resultSet) throws SQLException {

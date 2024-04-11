@@ -7,6 +7,8 @@ import java.util.List;
 public interface RecipeFolderDAO {
     RecipeFolder getRecipeFolderById(int recipeFolderId);
 
+    List<RecipeFolder> getRecipeFoldersByRecipeId(int recipeId);
+
     List<RecipeFolder> getAllRecipeFolders();
 
     void addRecipeFolder(RecipeFolder recipeFolder);

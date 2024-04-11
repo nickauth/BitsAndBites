@@ -1,7 +1,9 @@
 package org.bnb;
 
 import org.bnb.Classes.Recipe;
+import org.bnb.Database.DAO.IngredientsListDAOImpl;
 import org.bnb.Database.DAO.RecipeDAOImpl;
+import org.bnb.Database.DAO.interfaces.IngredientsListDAO;
 import org.bnb.Database.DAO.interfaces.RecipeDAO;
 import org.bnb.Database.DatabaseHandler;
 
@@ -18,18 +20,9 @@ public class Main {
         //DB Test
 
         RecipeDAOImpl recipeDAO = new RecipeDAOImpl(DatabaseHandler.connect());
+        IngredientsListDAOImpl testDAO = new IngredientsListDAOImpl();
 
-        List<Recipe> rez = recipeDAO.getAllRecipes();
-
-        if (rez.isEmpty()) {
-            System.out.println("Keine Rezepte gefunden.");
-        } else {
-            System.out.println("Liste aller Rezepte:");
-            for (Recipe recipe : rez) {
-                System.out.println(recipe.toString());
-                System.out.println("_______________");
-            }
-        }
+        System.out.println(testDAO.getAllIngredientsLists());
 
     }
 }

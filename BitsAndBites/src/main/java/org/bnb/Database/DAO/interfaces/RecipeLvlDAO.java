@@ -5,7 +5,6 @@ import org.bnb.Classes.RecipeLvl;
 import java.util.List;
 
 public interface RecipeLvlDAO {
-    List<RecipeLvl> getAllRecipeLevels();
 
     RecipeLvl getRecipeLvlById(int recipeLvlId);
 

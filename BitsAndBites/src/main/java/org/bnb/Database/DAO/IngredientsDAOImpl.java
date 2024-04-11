@@ -17,7 +17,21 @@ public class IngredientsDAOImpl implements IngredientsDAO {
 
     @Override
     public Ingredients getIngredientsById(int ingredientsId) {
-        return null;
+        String query = "SELECT * FROM Ingredients WHERE ID = ?";
+        Ingredients ingredients = null;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, ingredientsId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                ingredients = extractIngredientsFromResultSet(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ingredients;
     }
 
     @Override
@@ -27,7 +41,7 @@ public class IngredientsDAOImpl implements IngredientsDAO {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM Ingredients");
             while (resultSet.next()) {
-                Ingredients ingredient = extractIngredientFromResultSet(resultSet);
+                Ingredients ingredient = extractIngredientsFromResultSet(resultSet);
                 ingredients.add(ingredient);
             }
         } catch (SQLException e) {
@@ -38,20 +52,42 @@ public class IngredientsDAOImpl implements IngredientsDAO {
 
     @Override
     public void addIngredients(Ingredients ingredients) {
-
+        try {
+            String query = "INSERT INTO Ingredients (Name) VALUES (?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, ingredients.getName());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void updateIngredients(Ingredients ingredients) {
-
+        try {
+            String query = "UPDATE Ingredients SET Name = ? WHERE ID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, ingredients.getName());
+            preparedStatement.setInt(2, ingredients.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void deleteIngredients(int ingredientsId) {
-
+        try {
+            String query = "DELETE FROM Ingredients WHERE ID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, ingredientsId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    private Ingredients extractIngredientFromResultSet(ResultSet resultSet) throws SQLException {
+    private Ingredients extractIngredientsFromResultSet(ResultSet resultSet) throws SQLException {
         Ingredients ingredient = new Ingredients();
         ingredient.setId(resultSet.getInt("ID"));
         ingredient.setName(resultSet.getString("Name"));
