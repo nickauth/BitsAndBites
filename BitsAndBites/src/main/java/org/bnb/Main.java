@@ -1,14 +1,10 @@
 package org.bnb;
 
-import org.bnb.Classes.Recipe;
 import org.bnb.Database.DAO.IngredientsListDAOImpl;
 import org.bnb.Database.DAO.RecipeDAOImpl;
-import org.bnb.Database.DAO.interfaces.IngredientsListDAO;
-import org.bnb.Database.DAO.interfaces.RecipeDAO;
 import org.bnb.Database.DatabaseHandler;
 
 import java.sql.SQLException;
-import java.util.List;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.

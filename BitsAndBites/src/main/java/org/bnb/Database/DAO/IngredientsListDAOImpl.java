@@ -2,7 +2,7 @@ package org.bnb.Database.DAO;
 
 import org.bnb.Database.DAO.interfaces.IngredientsListDAO;
 import org.bnb.Database.DatabaseHandler;
-import org.bnb.Classes.IngredientsList;
+import org.bnb.Database.Classes.IngredientsListDB;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,20 +17,20 @@ public class IngredientsListDAOImpl implements IngredientsListDAO {
     }
 
     @Override
-    public IngredientsList getIngredientsListById(int ingredientsListId) {
+    public IngredientsListDB getIngredientsListById(int ingredientsListId) {
         String query = "SELECT * FROM IngredientsList WHERE ID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, ingredientsListId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                IngredientsList ingredientsList = new IngredientsList();
-                ingredientsList.setId(resultSet.getInt("ID"));
-                ingredientsList.setListID(resultSet.getInt("ListID"));
-                ingredientsList.setIngredientID(resultSet.getInt("IngredientID"));
-                ingredientsList.setRecipeID(resultSet.getInt("RecipeID"));
-                ingredientsList.setAmount(resultSet.getDouble("Amount"));
-                ingredientsList.setUnit(resultSet.getString("Unit"));
-                return ingredientsList;
+                IngredientsListDB ingredientsListDB = new IngredientsListDB();
+                ingredientsListDB.setId(resultSet.getInt("ID"));
+                ingredientsListDB.setListID(resultSet.getInt("ListID"));
+                ingredientsListDB.setIngredientID(resultSet.getInt("IngredientID"));
+                ingredientsListDB.setRecipeID(resultSet.getInt("RecipeID"));
+                ingredientsListDB.setAmount(resultSet.getDouble("Amount"));
+                ingredientsListDB.setUnit(resultSet.getString("Unit"));
+                return ingredientsListDB;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,60 +39,60 @@ public class IngredientsListDAOImpl implements IngredientsListDAO {
     }
 
     @Override
-    public List<IngredientsList> getIngredientsListByRecipeId(int recipeId) {
-        List<IngredientsList> ingredientsLists = new ArrayList<>();
+    public List<IngredientsListDB> getIngredientsListByRecipeId(int recipeId) {
+        List<IngredientsListDB> ingredientsListDBS = new ArrayList<>();
         String query = "SELECT * FROM IngredientsList WHERE RecipeID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, recipeId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                IngredientsList ingredientsList = new IngredientsList();
-                ingredientsList.setId(resultSet.getInt("ID"));
-                ingredientsList.setListID(resultSet.getInt("ListID"));
-                ingredientsList.setIngredientID(resultSet.getInt("IngredientID"));
-                ingredientsList.setRecipeID(resultSet.getInt("RecipeID"));
-                ingredientsList.setAmount(resultSet.getDouble("Amount"));
-                ingredientsList.setUnit(resultSet.getString("Unit"));
-                ingredientsLists.add(ingredientsList);
+                IngredientsListDB ingredientsListDB = new IngredientsListDB();
+                ingredientsListDB.setId(resultSet.getInt("ID"));
+                ingredientsListDB.setListID(resultSet.getInt("ListID"));
+                ingredientsListDB.setIngredientID(resultSet.getInt("IngredientID"));
+                ingredientsListDB.setRecipeID(resultSet.getInt("RecipeID"));
+                ingredientsListDB.setAmount(resultSet.getDouble("Amount"));
+                ingredientsListDB.setUnit(resultSet.getString("Unit"));
+                ingredientsListDBS.add(ingredientsListDB);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return ingredientsLists;
+        return ingredientsListDBS;
     }
 
     @Override
-    public List<IngredientsList> getAllIngredientsLists() {
-        List<IngredientsList> ingredientsLists = new ArrayList<>();
+    public List<IngredientsListDB> getAllIngredientsLists() {
+        List<IngredientsListDB> ingredientsListDBS = new ArrayList<>();
         String query = "SELECT * FROM IngredientsList";
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                IngredientsList ingredientsList = new IngredientsList();
-                ingredientsList.setId(resultSet.getInt("ID"));
-                ingredientsList.setListID(resultSet.getInt("ListID"));
-                ingredientsList.setIngredientID(resultSet.getInt("IngredientID"));
-                ingredientsList.setRecipeID(resultSet.getInt("RecipeID"));
-                ingredientsList.setAmount(resultSet.getDouble("Amount"));
-                ingredientsList.setUnit(resultSet.getString("Unit"));
-                ingredientsLists.add(ingredientsList);
+                IngredientsListDB ingredientsListDB = new IngredientsListDB();
+                ingredientsListDB.setId(resultSet.getInt("ID"));
+                ingredientsListDB.setListID(resultSet.getInt("ListID"));
+                ingredientsListDB.setIngredientID(resultSet.getInt("IngredientID"));
+                ingredientsListDB.setRecipeID(resultSet.getInt("RecipeID"));
+                ingredientsListDB.setAmount(resultSet.getDouble("Amount"));
+                ingredientsListDB.setUnit(resultSet.getString("Unit"));
+                ingredientsListDBS.add(ingredientsListDB);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return ingredientsLists;
+        return ingredientsListDBS;
     }
 
     @Override
-    public void addIngredientsList(IngredientsList ingredientsList) {
+    public void addIngredientsList(IngredientsListDB ingredientsListDB) {
         String query = "INSERT INTO IngredientsList (ID, /* weitere Spalten */) VALUES (?, /* weitere Werte */)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, ingredientsList.getId());
-            preparedStatement.setInt(2, ingredientsList.getListID());
-            preparedStatement.setInt(3, ingredientsList.getIngredientID());
-            preparedStatement.setInt(4, ingredientsList.getRecipeID());
-            preparedStatement.setDouble(5, ingredientsList.getAmount());
-            preparedStatement.setString(6, ingredientsList.getUnit());
+            preparedStatement.setInt(1, ingredientsListDB.getId());
+            preparedStatement.setInt(2, ingredientsListDB.getListID());
+            preparedStatement.setInt(3, ingredientsListDB.getIngredientID());
+            preparedStatement.setInt(4, ingredientsListDB.getRecipeID());
+            preparedStatement.setDouble(5, ingredientsListDB.getAmount());
+            preparedStatement.setString(6, ingredientsListDB.getUnit());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,15 +100,15 @@ public class IngredientsListDAOImpl implements IngredientsListDAO {
     }
 
     @Override
-    public void updateIngredientsList(IngredientsList ingredientsList) {
+    public void updateIngredientsList(IngredientsListDB ingredientsListDB) {
         String query = "UPDATE IngredientsList SET /* Spalten = Werte */ WHERE ID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, ingredientsList.getId());
-            preparedStatement.setInt(2, ingredientsList.getIngredientID());
-            preparedStatement.setInt(3, ingredientsList.getRecipeID());
-            preparedStatement.setDouble(4, ingredientsList.getAmount());
-            preparedStatement.setString(5, ingredientsList.getUnit());
-            preparedStatement.setInt(6, ingredientsList.getId());
+            preparedStatement.setInt(1, ingredientsListDB.getId());
+            preparedStatement.setInt(2, ingredientsListDB.getIngredientID());
+            preparedStatement.setInt(3, ingredientsListDB.getRecipeID());
+            preparedStatement.setDouble(4, ingredientsListDB.getAmount());
+            preparedStatement.setString(5, ingredientsListDB.getUnit());
+            preparedStatement.setInt(6, ingredientsListDB.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -126,14 +126,14 @@ public class IngredientsListDAOImpl implements IngredientsListDAO {
         }
     }
 
-    private IngredientsList extractIngredientsListFromResultSet(ResultSet resultSet) throws SQLException {
-        IngredientsList ingredientsList = new IngredientsList();
-        ingredientsList.setId(resultSet.getInt("ID"));
-        ingredientsList.setListID(resultSet.getInt("ListID"));
-        ingredientsList.setIngredientID(resultSet.getInt("IngredientID"));
-        ingredientsList.setRecipeID(resultSet.getInt("RecipeID"));
-        ingredientsList.setAmount(resultSet.getDouble("Amount"));
-        ingredientsList.setUnit(resultSet.getString("Unit"));
-        return ingredientsList;
+    private IngredientsListDB extractIngredientsListFromResultSet(ResultSet resultSet) throws SQLException {
+        IngredientsListDB ingredientsListDB = new IngredientsListDB();
+        ingredientsListDB.setId(resultSet.getInt("ID"));
+        ingredientsListDB.setListID(resultSet.getInt("ListID"));
+        ingredientsListDB.setIngredientID(resultSet.getInt("IngredientID"));
+        ingredientsListDB.setRecipeID(resultSet.getInt("RecipeID"));
+        ingredientsListDB.setAmount(resultSet.getDouble("Amount"));
+        ingredientsListDB.setUnit(resultSet.getString("Unit"));
+        return ingredientsListDB;
     }
 }

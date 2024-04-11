@@ -1,17 +1,17 @@
 package org.bnb.Database.DAO.interfaces;
 
-import org.bnb.Classes.Ingredients;
+import org.bnb.Database.Classes.IngredientsDB;
 
 import java.util.List;
 
 public interface IngredientsDAO {
-    Ingredients getIngredientsById(int ingredientsId);
+    IngredientsDB getIngredientsById(int ingredientsId);
 
-    List<Ingredients> getAllIngredients();
+    List<IngredientsDB> getAllIngredients();
 
-    void addIngredients(Ingredients ingredients);
+    void addIngredients(IngredientsDB ingredientsDB);
 
-    void updateIngredients(Ingredients ingredients);
+    void updateIngredients(IngredientsDB ingredientsDB);
 
     void deleteIngredients(int ingredientsId);
 }

@@ -1,7 +1,7 @@
 package org.bnb.Database.DAO;
 
 import org.bnb.Database.DAO.interfaces.DurationLevelsDAO;
-import org.bnb.Classes.DurationLevels;
+import org.bnb.Database.Classes.DurationLevelsDB;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,15 +16,15 @@ public class DurationLevelsDAOImpl implements DurationLevelsDAO {
     }
 
     @Override
-    public DurationLevels getDurationLevelsById(int durationLevelsId) {
-        DurationLevels durationLevel = null;
+    public DurationLevelsDB getDurationLevelsById(int durationLevelsId) {
+        DurationLevelsDB durationLevel = null;
         String query = "SELECT * FROM DurationLevels WHERE ID = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, durationLevelsId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                durationLevel = new DurationLevels();
+                durationLevel = new DurationLevelsDB();
                 durationLevel.setId(resultSet.getInt("ID"));
                 durationLevel.setDescription(resultSet.getString("Description"));
             }
@@ -36,23 +36,23 @@ public class DurationLevelsDAOImpl implements DurationLevelsDAO {
     }
 
     @Override
-    public List<DurationLevels> getAllDurationLevels() {
-        List<DurationLevels> durationLevels = new ArrayList<>();
+    public List<DurationLevelsDB> getAllDurationLevels() {
+        List<DurationLevelsDB> durationLevelDBS = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM DurationLevels");
             while (resultSet.next()) {
-                DurationLevels durationLevel = extractDurationLevelFromResultSet(resultSet);
-                durationLevels.add(durationLevel);
+                DurationLevelsDB durationLevel = extractDurationLevelFromResultSet(resultSet);
+                durationLevelDBS.add(durationLevel);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return durationLevels;
+        return durationLevelDBS;
     }
 
     @Override
-    public void addDurationLevels(DurationLevels durationLevel) {
+    public void addDurationLevels(DurationLevelsDB durationLevel) {
         String query = "INSERT INTO DurationLevels (Description) VALUES (?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -64,7 +64,7 @@ public class DurationLevelsDAOImpl implements DurationLevelsDAO {
     }
 
     @Override
-    public void updateDurationLevels(DurationLevels durationLevel) {
+    public void updateDurationLevels(DurationLevelsDB durationLevel) {
         String query = "UPDATE DurationLevels SET Description = ? WHERE ID = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -88,8 +88,8 @@ public class DurationLevelsDAOImpl implements DurationLevelsDAO {
         }
     }
 
-    private DurationLevels extractDurationLevelFromResultSet(ResultSet resultSet) throws SQLException {
-        DurationLevels durationLevel = new DurationLevels();
+    private DurationLevelsDB extractDurationLevelFromResultSet(ResultSet resultSet) throws SQLException {
+        DurationLevelsDB durationLevel = new DurationLevelsDB();
         durationLevel.setId(resultSet.getInt("ID"));
         durationLevel.setDescription(resultSet.getString("Description"));
         return durationLevel;

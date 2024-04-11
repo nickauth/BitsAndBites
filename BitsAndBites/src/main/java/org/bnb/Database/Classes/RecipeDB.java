@@ -1,6 +1,6 @@
-package org.bnb.Classes;
+package org.bnb.Database.Classes;
 
-public class Recipe {
+public class RecipeDB {
     private int rid;
     private String rName;
     private String description;
@@ -12,10 +12,10 @@ public class Recipe {
     private int isVegetarian;
     private int ingredientListID;
 
-    public Recipe() {
+    public RecipeDB() {
     }
 
-    public Recipe(int rid, String rName, String description, int rLvl, int durationLvlID, String userComment, int mealID, int isVegan, int isVegetarian, int ingredientListID) {
+    public RecipeDB(int rid, String rName, String description, int rLvl, int durationLvlID, String userComment, int mealID, int isVegan, int isVegetarian, int ingredientListID) {
         this.rid = rid;
         this.rName = rName;
         this.description = description;

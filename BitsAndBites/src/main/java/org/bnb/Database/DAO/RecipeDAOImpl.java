@@ -1,8 +1,6 @@
 package org.bnb.Database.DAO;
 
-import org.bnb.Classes.Ingredients;
-import org.bnb.Classes.IngredientsList;
-import org.bnb.Classes.Recipe;
+import org.bnb.Database.Classes.RecipeDB;
 import org.bnb.Database.DatabaseHandler;
 import org.bnb.Database.DAO.interfaces.RecipeDAO;
 
@@ -19,8 +17,8 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    public Recipe getRecipeById(int recipeId) {
-        Recipe recipe = null;
+    public RecipeDB getRecipeById(int recipeId) {
+        RecipeDB recipe = null;
         try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Recipe WHERE RID = ?")) {
             stmt.setInt(1, recipeId);
             ResultSet resultSet = stmt.executeQuery();
@@ -34,14 +32,14 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    public List<Recipe> getRecipeByLvl(int recipeLvl) {
-        List<Recipe> recipes = new ArrayList<>();
+    public List<RecipeDB> getRecipeByLvl(int recipeLvl) {
+        List<RecipeDB> recipes = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM Recipe WHERE RLvl = ?")) {
             preparedStatement.setInt(1, recipeLvl);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    Recipe recipe = extractRecipeFromResultSet(resultSet);
+                    RecipeDB recipe = extractRecipeFromResultSet(resultSet);
                     recipes.add(recipe);
                 }
             }
@@ -52,14 +50,14 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    public List<Recipe> getRecipeByDuration(int durationLvl) {
-        List<Recipe> recipes = new ArrayList<>();
+    public List<RecipeDB> getRecipeByDuration(int durationLvl) {
+        List<RecipeDB> recipes = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM Recipe WHERE DurationLvlID = ?")) {
             preparedStatement.setInt(1, durationLvl);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    Recipe recipe = extractRecipeFromResultSet(resultSet);
+                    RecipeDB recipe = extractRecipeFromResultSet(resultSet);
                     recipes.add(recipe);
                 }
             }
@@ -70,14 +68,14 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    public List<Recipe> getRecipeByMeal(int mealId) {
-        List<Recipe> recipes = new ArrayList<>();
+    public List<RecipeDB> getRecipeByMeal(int mealId) {
+        List<RecipeDB> recipes = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM Recipe WHERE MealID = ?")) {
             preparedStatement.setInt(1, mealId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    Recipe recipe = extractRecipeFromResultSet(resultSet);
+                    RecipeDB recipe = extractRecipeFromResultSet(resultSet);
                     recipes.add(recipe);
                 }
             }
@@ -88,15 +86,15 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    public List<Recipe> getRecipeByIsVegan(boolean isVegan) {
+    public List<RecipeDB> getRecipeByIsVegan(boolean isVegan) {
         int veganInt = isVegan ? 1 : 0;
-        List<Recipe> recipes = new ArrayList<>();
+        List<RecipeDB> recipes = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM Recipe WHERE IsVegan = ?")) {
             preparedStatement.setInt(1, veganInt);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    Recipe recipe = extractRecipeFromResultSet(resultSet);
+                    RecipeDB recipe = extractRecipeFromResultSet(resultSet);
                     recipes.add(recipe);
                 }
             }
@@ -107,15 +105,15 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    public List<Recipe> getRecipeByIsVegetarian(boolean isVegetarian) {
+    public List<RecipeDB> getRecipeByIsVegetarian(boolean isVegetarian) {
         int vegetarianInt = isVegetarian ? 1 : 0;
-        List<Recipe> recipes = new ArrayList<>();
+        List<RecipeDB> recipes = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM Recipe WHERE IsVegetarian = ?")) {
             preparedStatement.setInt(1, vegetarianInt);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    Recipe recipe = extractRecipeFromResultSet(resultSet);
+                    RecipeDB recipe = extractRecipeFromResultSet(resultSet);
                     recipes.add(recipe);
                 }
             }
@@ -126,10 +124,10 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    public List<Recipe> getRecipesByFilters(int level, int durationLevel, boolean isVegan, boolean isVegetarian, int mealId) {
+    public List<RecipeDB> getRecipesByFilters(int level, int durationLevel, boolean isVegan, boolean isVegetarian, int mealId) {
         int veganInt = isVegan ? 1 : 0;
         int vegetarianInt = isVegetarian ? 1 : 0;
-        List<Recipe> recipes = new ArrayList<>();
+        List<RecipeDB> recipes = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM Recipe WHERE RLvl = ? AND DurationLvlID = ? AND IsVegan = ? AND IsVegetarian = ? AND MealID = ?")) {
             preparedStatement.setInt(1, level);
@@ -139,7 +137,7 @@ public class RecipeDAOImpl implements RecipeDAO {
             preparedStatement.setInt(5, mealId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    Recipe recipe = extractRecipeFromResultSet(resultSet);
+                    RecipeDB recipe = extractRecipeFromResultSet(resultSet);
                     recipes.add(recipe);
                 }
             }
@@ -150,14 +148,14 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    public List<Recipe> getAllRecipes() {
-        List<Recipe> recipes = new ArrayList<>();
+    public List<RecipeDB> getAllRecipes() {
+        List<RecipeDB> recipes = new ArrayList<>();
         try (Connection con = DatabaseHandler.connect();
              Statement stmt = con.createStatement();
              ResultSet resultSet = stmt.executeQuery("SELECT * FROM Recipe")) {
 
             while (resultSet.next()) {
-                Recipe recipe = extractRecipeFromResultSet(resultSet);
+                RecipeDB recipe = extractRecipeFromResultSet(resultSet);
                 recipes.add(recipe);
             }
         } catch (SQLException e) {
@@ -167,7 +165,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    public void addRecipe(Recipe recipe) {
+    public void addRecipe(RecipeDB recipe) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Recipe (RName, Description, RLvl, DurationLvlID, UserComment, MealID, IsVegan, IsVegetarian, IngredientListID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             preparedStatement.setString(1, recipe.getrName());
@@ -186,7 +184,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    public void updateRecipe(Recipe recipe) {
+    public void updateRecipe(RecipeDB recipe) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Recipe SET RName = ?, Description = ?, RLvl = ?, DurationLvlID = ?, UserComment = ?, MealID = ?, IsVegan = ?, IsVegetarian = ?, IngredientListID = ? WHERE RID = ?");
             preparedStatement.setString(1, recipe.getrName());
@@ -216,8 +214,8 @@ public class RecipeDAOImpl implements RecipeDAO {
         }
     }
 
-    private Recipe extractRecipeFromResultSet(ResultSet resultSet) throws SQLException {
-        Recipe recipe = new Recipe();
+    private RecipeDB extractRecipeFromResultSet(ResultSet resultSet) throws SQLException {
+        RecipeDB recipe = new RecipeDB();
         recipe.setRid(resultSet.getInt("RID"));
         recipe.setrName(resultSet.getString("RName"));
         recipe.setDescription(resultSet.getString("Description"));

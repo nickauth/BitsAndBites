@@ -1,6 +1,6 @@
-package org.bnb.Classes;
+package org.bnb.Database.Classes;
 
-public class RecipeLvl {
+public class RecipeLvlDB {
     private int lvlID;
     private String description;
 

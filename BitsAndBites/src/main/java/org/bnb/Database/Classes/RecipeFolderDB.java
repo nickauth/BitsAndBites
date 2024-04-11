@@ -1,6 +1,6 @@
-package org.bnb.Classes;
+package org.bnb.Database.Classes;
 
-public class RecipeFolder {
+public class RecipeFolderDB {
     private int id;
     private int recipeID;
     private int folderID;

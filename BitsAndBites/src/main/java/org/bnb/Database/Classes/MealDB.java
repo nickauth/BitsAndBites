@@ -1,6 +1,6 @@
-package org.bnb.Classes;
+package org.bnb.Database.Classes;
 
-public class Meal {
+public class MealDB {
     private int mid;
     private String description;
 

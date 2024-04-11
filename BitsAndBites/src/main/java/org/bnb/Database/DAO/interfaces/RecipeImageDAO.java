@@ -1,17 +1,17 @@
 package org.bnb.Database.DAO.interfaces;
 
-import org.bnb.Classes.RecipeImages;
+import org.bnb.Database.Classes.RecipeImagesDB;
 
 import java.util.List;
 
 public interface RecipeImageDAO {
-    List<RecipeImages> getRecipeImageById(int recipeImageId);
+    List<RecipeImagesDB> getRecipeImageById(int recipeImageId);
 
-    List<RecipeImages> getAllRecipeImages();
+    List<RecipeImagesDB> getAllRecipeImages();
 
-    void addRecipeImage(RecipeImages recipeImage);
+    void addRecipeImage(RecipeImagesDB recipeImage);
 
-    void updateRecipeImage(RecipeImages recipeImage);
+    void updateRecipeImage(RecipeImagesDB recipeImage);
 
     void deleteRecipeImage(int recipeImageId);
 }

@@ -1,6 +1,6 @@
 package org.bnb.Database.DAO;
 
-import org.bnb.Classes.RecipeLvl;
+import org.bnb.Database.Classes.RecipeLvlDB;
 import org.bnb.Database.DAO.interfaces.RecipeLvlDAO;
 
 import java.sql.*;
@@ -16,7 +16,7 @@ public class RecipeLvlDAOImpl implements RecipeLvlDAO {
     }
 
     @Override
-    public RecipeLvl getRecipeLvlById(int lvlId) {
+    public RecipeLvlDB getRecipeLvlById(int lvlId) {
         String query = "SELECT * FROM RecipeLvl WHERE LvlID = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -33,29 +33,29 @@ public class RecipeLvlDAOImpl implements RecipeLvlDAO {
     }
 
     @Override
-    public List<RecipeLvl> getAllRecipeLvls() {
-        List<RecipeLvl> recipeLvls = new ArrayList<>();
+    public List<RecipeLvlDB> getAllRecipeLvls() {
+        List<RecipeLvlDB> recipeLvlDBS = new ArrayList<>();
         String query = "SELECT * FROM RecipeLvl";
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                RecipeLvl recipeLvl = extractRecipeLvlFromResultSet(resultSet);
-                recipeLvls.add(recipeLvl);
+                RecipeLvlDB recipeLvlDB = extractRecipeLvlFromResultSet(resultSet);
+                recipeLvlDBS.add(recipeLvlDB);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return recipeLvls;
+        return recipeLvlDBS;
     }
 
     @Override
-    public void addRecipeLvl(RecipeLvl recipeLvl) {
+    public void addRecipeLvl(RecipeLvlDB recipeLvlDB) {
         String query = "INSERT INTO RecipeLvl (Description) VALUES (?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, recipeLvl.getDescription());
+            preparedStatement.setString(1, recipeLvlDB.getDescription());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,12 +63,12 @@ public class RecipeLvlDAOImpl implements RecipeLvlDAO {
     }
 
     @Override
-    public void updateRecipeLvl(RecipeLvl recipeLvl) {
+    public void updateRecipeLvl(RecipeLvlDB recipeLvlDB) {
         String query = "UPDATE RecipeLvl SET Description = ? WHERE LvlID = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, recipeLvl.getDescription());
-            preparedStatement.setInt(2, recipeLvl.getLvlID());
+            preparedStatement.setString(1, recipeLvlDB.getDescription());
+            preparedStatement.setInt(2, recipeLvlDB.getLvlID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -87,8 +87,8 @@ public class RecipeLvlDAOImpl implements RecipeLvlDAO {
         }
     }
 
-    private RecipeLvl extractRecipeLvlFromResultSet(ResultSet resultSet) throws SQLException {
-        RecipeLvl recipeLevel = new RecipeLvl();
+    private RecipeLvlDB extractRecipeLvlFromResultSet(ResultSet resultSet) throws SQLException {
+        RecipeLvlDB recipeLevel = new RecipeLvlDB();
         recipeLevel.setLvlID(resultSet.getInt("LvlID"));
         recipeLevel.setDescription(resultSet.getString("Description"));
         return recipeLevel;

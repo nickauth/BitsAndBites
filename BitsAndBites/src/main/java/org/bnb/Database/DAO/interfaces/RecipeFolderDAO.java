@@ -1,19 +1,19 @@
 package org.bnb.Database.DAO.interfaces;
 
-import org.bnb.Classes.RecipeFolder;
+import org.bnb.Database.Classes.RecipeFolderDB;
 
 import java.util.List;
 
 public interface RecipeFolderDAO {
-    RecipeFolder getRecipeFolderById(int recipeFolderId);
+    RecipeFolderDB getRecipeFolderById(int recipeFolderId);
 
-    List<RecipeFolder> getRecipeFoldersByRecipeId(int recipeId);
+    List<RecipeFolderDB> getRecipeFoldersByRecipeId(int recipeId);
 
-    List<RecipeFolder> getAllRecipeFolders();
+    List<RecipeFolderDB> getAllRecipeFolders();
 
-    void addRecipeFolder(RecipeFolder recipeFolder);
+    void addRecipeFolder(RecipeFolderDB recipeFolderDB);
 
-    void updateRecipeFolder(RecipeFolder recipeFolder);
+    void updateRecipeFolder(RecipeFolderDB recipeFolderDB);
 
     void deleteRecipeFolder(int recipeFolderId);
 }

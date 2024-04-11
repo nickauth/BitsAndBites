@@ -1,7 +1,7 @@
 package org.bnb.Database.DAO;
 
 import org.bnb.Database.DAO.interfaces.IngredientsDAO;
-import org.bnb.Classes.Ingredients;
+import org.bnb.Database.Classes.IngredientsDB;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,32 +16,32 @@ public class IngredientsDAOImpl implements IngredientsDAO {
     }
 
     @Override
-    public Ingredients getIngredientsById(int ingredientsId) {
+    public IngredientsDB getIngredientsById(int ingredientsId) {
         String query = "SELECT * FROM Ingredients WHERE ID = ?";
-        Ingredients ingredients = null;
+        IngredientsDB ingredientsDB = null;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, ingredientsId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                ingredients = extractIngredientsFromResultSet(resultSet);
+                ingredientsDB = extractIngredientsFromResultSet(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return ingredients;
+        return ingredientsDB;
     }
 
     @Override
-    public List<Ingredients> getAllIngredients() {
-        List<Ingredients> ingredients = new ArrayList<>();
+    public List<IngredientsDB> getAllIngredients() {
+        List<IngredientsDB> ingredients = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM Ingredients");
             while (resultSet.next()) {
-                Ingredients ingredient = extractIngredientsFromResultSet(resultSet);
+                IngredientsDB ingredient = extractIngredientsFromResultSet(resultSet);
                 ingredients.add(ingredient);
             }
         } catch (SQLException e) {
@@ -51,11 +51,11 @@ public class IngredientsDAOImpl implements IngredientsDAO {
     }
 
     @Override
-    public void addIngredients(Ingredients ingredients) {
+    public void addIngredients(IngredientsDB ingredientsDB) {
         try {
             String query = "INSERT INTO Ingredients (Name) VALUES (?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, ingredients.getName());
+            preparedStatement.setString(1, ingredientsDB.getName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,12 +63,12 @@ public class IngredientsDAOImpl implements IngredientsDAO {
     }
 
     @Override
-    public void updateIngredients(Ingredients ingredients) {
+    public void updateIngredients(IngredientsDB ingredientsDB) {
         try {
             String query = "UPDATE Ingredients SET Name = ? WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, ingredients.getName());
-            preparedStatement.setInt(2, ingredients.getId());
+            preparedStatement.setString(1, ingredientsDB.getName());
+            preparedStatement.setInt(2, ingredientsDB.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -87,8 +87,8 @@ public class IngredientsDAOImpl implements IngredientsDAO {
         }
     }
 
-    private Ingredients extractIngredientsFromResultSet(ResultSet resultSet) throws SQLException {
-        Ingredients ingredient = new Ingredients();
+    private IngredientsDB extractIngredientsFromResultSet(ResultSet resultSet) throws SQLException {
+        IngredientsDB ingredient = new IngredientsDB();
         ingredient.setId(resultSet.getInt("ID"));
         ingredient.setName(resultSet.getString("Name"));
         return ingredient;

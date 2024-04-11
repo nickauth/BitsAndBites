@@ -1,18 +1,18 @@
 package org.bnb.Database.DAO.interfaces;
 
-import org.bnb.Classes.RecipeLvl;
+import org.bnb.Database.Classes.RecipeLvlDB;
 
 import java.util.List;
 
 public interface RecipeLvlDAO {
 
-    RecipeLvl getRecipeLvlById(int recipeLvlId);
+    RecipeLvlDB getRecipeLvlById(int recipeLvlId);
 
-    List<RecipeLvl> getAllRecipeLvls();
+    List<RecipeLvlDB> getAllRecipeLvls();
 
-    void addRecipeLvl(RecipeLvl recipeLvl);
+    void addRecipeLvl(RecipeLvlDB recipeLvlDB);
 
-    void updateRecipeLvl(RecipeLvl recipeLvl);
+    void updateRecipeLvl(RecipeLvlDB recipeLvlDB);
 
     void deleteRecipeLvl(int recipeLvlId);
 }

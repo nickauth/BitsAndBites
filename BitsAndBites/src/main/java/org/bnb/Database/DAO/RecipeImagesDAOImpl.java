@@ -1,6 +1,6 @@
 package org.bnb.Database.DAO;
 
-import org.bnb.Classes.RecipeImages;
+import org.bnb.Database.Classes.RecipeImagesDB;
 import org.bnb.Database.DAO.interfaces.RecipeImageDAO;
 
 import java.sql.*;
@@ -16,8 +16,8 @@ public class RecipeImagesDAOImpl implements RecipeImageDAO {
     }
 
     @Override
-    public List<RecipeImages> getRecipeImageById(int recipeId) {
-        List<RecipeImages> recipeImagesList = new ArrayList<>();
+    public List<RecipeImagesDB> getRecipeImageById(int recipeId) {
+        List<RecipeImagesDB> recipeImagesDBList = new ArrayList<>();
         String query = "SELECT * FROM RecipeImages WHERE RecipeID = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -25,34 +25,34 @@ public class RecipeImagesDAOImpl implements RecipeImageDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                RecipeImages recipeImages = extractRecipeImageFromResultSet(resultSet);
-                recipeImagesList.add(recipeImages);
+                RecipeImagesDB recipeImagesDB = extractRecipeImageFromResultSet(resultSet);
+                recipeImagesDBList.add(recipeImagesDB);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return recipeImagesList;
+        return recipeImagesDBList;
     }
 
     @Override
-    public List<RecipeImages> getAllRecipeImages() {
-        List<RecipeImages> recipeImages = new ArrayList<>();
+    public List<RecipeImagesDB> getAllRecipeImages() {
+        List<RecipeImagesDB> recipeImageDBS = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM RecipeImages");
             while (resultSet.next()) {
-                RecipeImages recipeImage = extractRecipeImageFromResultSet(resultSet);
-                recipeImages.add(recipeImage);
+                RecipeImagesDB recipeImage = extractRecipeImageFromResultSet(resultSet);
+                recipeImageDBS.add(recipeImage);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return recipeImages;
+        return recipeImageDBS;
     }
 
     @Override
-    public void addRecipeImage(RecipeImages recipeImage) {
+    public void addRecipeImage(RecipeImagesDB recipeImage) {
         String query = "INSERT INTO RecipeImages (RecipeID, ImageAddress) VALUES (?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -65,7 +65,7 @@ public class RecipeImagesDAOImpl implements RecipeImageDAO {
     }
 
     @Override
-    public void updateRecipeImage(RecipeImages recipeImage) {
+    public void updateRecipeImage(RecipeImagesDB recipeImage) {
         String query = "UPDATE RecipeImages SET ImageAddress = ? WHERE ImageID = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -89,8 +89,8 @@ public class RecipeImagesDAOImpl implements RecipeImageDAO {
         }
     }
 
-    private RecipeImages extractRecipeImageFromResultSet(ResultSet resultSet) throws SQLException {
-        RecipeImages recipeImage = new RecipeImages();
+    private RecipeImagesDB extractRecipeImageFromResultSet(ResultSet resultSet) throws SQLException {
+        RecipeImagesDB recipeImage = new RecipeImagesDB();
         recipeImage.setImageID(resultSet.getInt("ImageID"));
         recipeImage.setRecipeID(resultSet.getInt("RecipeID"));
         recipeImage.setImageAddress(resultSet.getString("ImageAddress"));

@@ -1,6 +1,6 @@
-package org.bnb.Classes;
+package org.bnb.Database.Classes;
 
-public class Folder {
+public class FolderDB {
     private int id;
     private String folderName;
 

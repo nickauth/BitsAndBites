@@ -1,7 +1,7 @@
 package org.bnb.Database.DAO;
 
 import org.bnb.Database.DAO.interfaces.FolderDAO;
-import org.bnb.Classes.Folder;
+import org.bnb.Database.Classes.FolderDB;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,42 +16,42 @@ public class FolderDAOImpl implements FolderDAO {
     }
 
     @Override
-    public Folder getFolderById(int id) {
-        Folder folder = null;
+    public FolderDB getFolderById(int id) {
+        FolderDB folderDB = null;
         String query = "SELECT * FROM Folder WHERE ID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                folder = extractFolderFromResultSet(resultSet);
+                folderDB = extractFolderFromResultSet(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return folder;
+        return folderDB;
     }
 
     @Override
-    public List<Folder> getAllFolders() {
-        List<Folder> folders = new ArrayList<>();
+    public List<FolderDB> getAllFolders() {
+        List<FolderDB> folderDBS = new ArrayList<>();
         String query = "SELECT * FROM Folder";
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                Folder folder = extractFolderFromResultSet(resultSet);
-                folders.add(folder);
+                FolderDB folderDB = extractFolderFromResultSet(resultSet);
+                folderDBS.add(folderDB);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return folders;
+        return folderDBS;
     }
 
     @Override
-    public void addFolder(Folder folder) {
+    public void addFolder(FolderDB folderDB) {
         String query = "INSERT INTO Folder (FolderName) VALUES (?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, folder.getFolderName());
+            preparedStatement.setString(1, folderDB.getFolderName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,11 +59,11 @@ public class FolderDAOImpl implements FolderDAO {
     }
 
     @Override
-    public void updateFolder(Folder folder) {
+    public void updateFolder(FolderDB folderDB) {
         String query = "UPDATE Folder SET FolderName = ? WHERE ID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, folder.getFolderName());
-            preparedStatement.setInt(2, folder.getId());
+            preparedStatement.setString(1, folderDB.getFolderName());
+            preparedStatement.setInt(2, folderDB.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,10 +81,10 @@ public class FolderDAOImpl implements FolderDAO {
         }
     }
 
-    private Folder extractFolderFromResultSet(ResultSet resultSet) throws SQLException {
-        Folder folder = new Folder();
-        folder.setId(resultSet.getInt("ID"));
-        folder.setFolderName(resultSet.getString("FolderName"));
-        return folder;
+    private FolderDB extractFolderFromResultSet(ResultSet resultSet) throws SQLException {
+        FolderDB folderDB = new FolderDB();
+        folderDB.setId(resultSet.getInt("ID"));
+        folderDB.setFolderName(resultSet.getString("FolderName"));
+        return folderDB;
     }
 }

@@ -1,17 +1,17 @@
 package org.bnb.Database.DAO.interfaces;
 
-import org.bnb.Classes.Meal;
+import org.bnb.Database.Classes.MealDB;
 
 import java.util.List;
 
 public interface MealDAO {
-    Meal getMealById(int mealId);
+    MealDB getMealById(int mealId);
 
-    List<Meal> getAllMeals();
+    List<MealDB> getAllMeals();
 
-    void addMeal(Meal meal);
+    void addMeal(MealDB meal);
 
-    void updateMeal(Meal meal);
+    void updateMeal(MealDB meal);
 
     void deleteMeal(int mealId);
 }

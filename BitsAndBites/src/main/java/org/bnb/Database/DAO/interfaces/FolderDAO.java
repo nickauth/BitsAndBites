@@ -1,17 +1,17 @@
 package org.bnb.Database.DAO.interfaces;
 
-import org.bnb.Classes.Folder;
+import org.bnb.Database.Classes.FolderDB;
 
 import java.util.List;
 
 public interface FolderDAO {
-    Folder getFolderById(int folderId);
+    FolderDB getFolderById(int folderId);
 
-    List<Folder> getAllFolders();
+    List<FolderDB> getAllFolders();
 
-    void addFolder(Folder folder);
+    void addFolder(FolderDB folderDB);
 
-    void updateFolder(Folder folder);
+    void updateFolder(FolderDB folderDB);
 
     void deleteFolder(int folderId);
 }

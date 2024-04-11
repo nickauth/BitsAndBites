@@ -1,7 +1,7 @@
 package org.bnb.Database.DAO;
 
 import org.bnb.Database.DAO.interfaces.RecipeFolderDAO;
-import org.bnb.Classes.RecipeFolder;
+import org.bnb.Database.Classes.RecipeFolderDB;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,8 +16,8 @@ public class RecipeFolderDAOImpl implements RecipeFolderDAO {
     }
 
     @Override
-    public RecipeFolder getRecipeFolderById(int recipeFolderId) {
-        RecipeFolder recipeFolder = null;
+    public RecipeFolderDB getRecipeFolderById(int recipeFolderId) {
+        RecipeFolderDB recipeFolderDB = null;
         String query = "SELECT * FROM RecipeFolder WHERE ROID = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -25,18 +25,18 @@ public class RecipeFolderDAOImpl implements RecipeFolderDAO {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                recipeFolder = extractRecipeFolderFromResultSet(resultSet);
+                recipeFolderDB = extractRecipeFolderFromResultSet(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return recipeFolder;
+        return recipeFolderDB;
     }
 
     @Override
-    public List<RecipeFolder> getRecipeFoldersByRecipeId(int recipeId) {
-        List<RecipeFolder> recipeFolders = new ArrayList<>();
+    public List<RecipeFolderDB> getRecipeFoldersByRecipeId(int recipeId) {
+        List<RecipeFolderDB> recipeFolderDBS = new ArrayList<>();
         String query = "SELECT * FROM RecipeFolder WHERE RecipeID = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -44,42 +44,42 @@ public class RecipeFolderDAOImpl implements RecipeFolderDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                RecipeFolder recipeFolder = extractRecipeFolderFromResultSet(resultSet);
-                recipeFolders.add(recipeFolder);
+                RecipeFolderDB recipeFolderDB = extractRecipeFolderFromResultSet(resultSet);
+                recipeFolderDBS.add(recipeFolderDB);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return recipeFolders;
+        return recipeFolderDBS;
     }
 
     @Override
-    public List<RecipeFolder> getAllRecipeFolders() {
-        List<RecipeFolder> recipeFolders = new ArrayList<>();
+    public List<RecipeFolderDB> getAllRecipeFolders() {
+        List<RecipeFolderDB> recipeFolderDBS = new ArrayList<>();
         String query = "SELECT * FROM RecipeFolder";
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
-                RecipeFolder recipeFolder = extractRecipeFolderFromResultSet(resultSet);
-                recipeFolders.add(recipeFolder);
+                RecipeFolderDB recipeFolderDB = extractRecipeFolderFromResultSet(resultSet);
+                recipeFolderDBS.add(recipeFolderDB);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return recipeFolders;
+        return recipeFolderDBS;
     }
 
     @Override
-    public void addRecipeFolder(RecipeFolder recipeFolder) {
+    public void addRecipeFolder(RecipeFolderDB recipeFolderDB) {
         String query = "INSERT INTO RecipeFolder (RecipeID, FolderID) VALUES (?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, recipeFolder.getRecipeID());
-            preparedStatement.setInt(2, recipeFolder.getFolderID());
+            preparedStatement.setInt(1, recipeFolderDB.getRecipeID());
+            preparedStatement.setInt(2, recipeFolderDB.getFolderID());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -88,13 +88,13 @@ public class RecipeFolderDAOImpl implements RecipeFolderDAO {
     }
 
     @Override
-    public void updateRecipeFolder(RecipeFolder recipeFolder) {
+    public void updateRecipeFolder(RecipeFolderDB recipeFolderDB) {
         String query = "UPDATE RecipeFolder SET RecipeID = ?, FolderID = ? WHERE ROID = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, recipeFolder.getRecipeID());
-            preparedStatement.setInt(2, recipeFolder.getFolderID());
-            preparedStatement.setInt(3, recipeFolder.getId());
+            preparedStatement.setInt(1, recipeFolderDB.getRecipeID());
+            preparedStatement.setInt(2, recipeFolderDB.getFolderID());
+            preparedStatement.setInt(3, recipeFolderDB.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -115,11 +115,11 @@ public class RecipeFolderDAOImpl implements RecipeFolderDAO {
         }
     }
 
-    private RecipeFolder extractRecipeFolderFromResultSet(ResultSet resultSet) throws SQLException {
-        RecipeFolder recipeFolder = new RecipeFolder();
-        recipeFolder.setId(resultSet.getInt("ROID"));
-        recipeFolder.setRecipeID(resultSet.getInt("RecipeID"));
-        recipeFolder.setFolderID(resultSet.getInt("FolderID"));
-        return recipeFolder;
+    private RecipeFolderDB extractRecipeFolderFromResultSet(ResultSet resultSet) throws SQLException {
+        RecipeFolderDB recipeFolderDB = new RecipeFolderDB();
+        recipeFolderDB.setId(resultSet.getInt("ROID"));
+        recipeFolderDB.setRecipeID(resultSet.getInt("RecipeID"));
+        recipeFolderDB.setFolderID(resultSet.getInt("FolderID"));
+        return recipeFolderDB;
     }
 }

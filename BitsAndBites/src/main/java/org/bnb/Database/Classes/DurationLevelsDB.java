@@ -1,6 +1,6 @@
-package org.bnb.Classes;
+package org.bnb.Database.Classes;
 
-public class DurationLevels {
+public class DurationLevelsDB {
     private int id;
     private String description;
 

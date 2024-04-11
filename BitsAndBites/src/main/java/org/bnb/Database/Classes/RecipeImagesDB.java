@@ -1,6 +1,6 @@
-package org.bnb.Classes;
+package org.bnb.Database.Classes;
 
-public class RecipeImages {
+public class RecipeImagesDB {
     private int imageID;
     private int recipeID;
     private String imageAddress;

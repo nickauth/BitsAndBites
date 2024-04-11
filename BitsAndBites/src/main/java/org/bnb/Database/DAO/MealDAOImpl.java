@@ -1,7 +1,7 @@
 package org.bnb.Database.DAO;
 
 import org.bnb.Database.DAO.interfaces.MealDAO;
-import org.bnb.Classes.Meal;
+import org.bnb.Database.Classes.MealDB;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,8 +16,8 @@ public class MealDAOImpl implements MealDAO {
     }
 
     @Override
-    public Meal getMealById(int mealId) {
-        Meal meal = null;
+    public MealDB getMealById(int mealId) {
+        MealDB meal = null;
         String query = "SELECT * FROM Meal WHERE MID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, mealId);
@@ -32,13 +32,13 @@ public class MealDAOImpl implements MealDAO {
     }
 
     @Override
-    public List<Meal> getAllMeals() {
-        List<Meal> meals = new ArrayList<>();
+    public List<MealDB> getAllMeals() {
+        List<MealDB> meals = new ArrayList<>();
         String query = "SELECT * FROM Meal";
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                Meal meal = extractMealFromResultSet(resultSet);
+                MealDB meal = extractMealFromResultSet(resultSet);
                 meals.add(meal);
             }
         } catch (SQLException e) {
@@ -48,7 +48,7 @@ public class MealDAOImpl implements MealDAO {
     }
 
     @Override
-    public void addMeal(Meal meal) {
+    public void addMeal(MealDB meal) {
         String query = "INSERT INTO Meal (Description) VALUES (?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, meal.getDescription());
@@ -59,7 +59,7 @@ public class MealDAOImpl implements MealDAO {
     }
 
     @Override
-    public void updateMeal(Meal meal) {
+    public void updateMeal(MealDB meal) {
         String query = "UPDATE Meal SET Description = ? WHERE MID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, meal.getDescription());
@@ -81,8 +81,8 @@ public class MealDAOImpl implements MealDAO {
         }
     }
 
-    private Meal extractMealFromResultSet(ResultSet resultSet) throws SQLException {
-        Meal meal = new Meal();
+    private MealDB extractMealFromResultSet(ResultSet resultSet) throws SQLException {
+        MealDB meal = new MealDB();
         meal.setMid(resultSet.getInt("MID"));
         meal.setDescription(resultSet.getString("Description"));
         return meal;
