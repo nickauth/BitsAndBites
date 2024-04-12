@@ -32,6 +32,24 @@ public class MealDAOImpl implements MealDAO {
     }
 
     @Override
+    public int getMealIdByDescription(String description) {
+        try {String query = "SELECT mealId FROM Meals WHERE description = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, description);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt("mealId");
+            } else {
+                return -1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1; // Rückgabe eines negativen Werts im Fehlerfall
+        }
+    }
+
+    @Override
     public List<MealDB> getAllMeals() {
         List<MealDB> meals = new ArrayList<>();
         String query = "SELECT * FROM Meal";

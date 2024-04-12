@@ -2,7 +2,6 @@ package org.bnb.Database.Classes;
 
 public class IngredientsListDB {
     private int id;
-    private int listID;
     private int ingredientID;
     private int recipeID;
     private double amount;
@@ -14,14 +13,6 @@ public class IngredientsListDB {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getListID() {
-        return listID;
-    }
-
-    public void setListID(int listID) {
-        this.listID = listID;
     }
 
     public int getIngredientID() {

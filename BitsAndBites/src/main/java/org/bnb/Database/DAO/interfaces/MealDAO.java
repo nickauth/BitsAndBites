@@ -7,6 +7,8 @@ import java.util.List;
 public interface MealDAO {
     MealDB getMealById(int mealId);
 
+    int getMealIdByDescription(String description);
+
     List<MealDB> getAllMeals();
 
     void addMeal(MealDB meal);

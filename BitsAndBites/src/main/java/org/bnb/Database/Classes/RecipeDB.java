@@ -10,12 +10,11 @@ public class RecipeDB {
     private int mealID;
     private int isVegan;
     private int isVegetarian;
-    private int ingredientListID;
 
     public RecipeDB() {
     }
 
-    public RecipeDB(int rid, String rName, String description, int rLvl, int durationLvlID, String userComment, int mealID, int isVegan, int isVegetarian, int ingredientListID) {
+    public RecipeDB(int rid, String rName, String description, int rLvl, int durationLvlID, String userComment, int mealID, int isVegan, int isVegetarian) {
         this.rid = rid;
         this.rName = rName;
         this.description = description;
@@ -25,7 +24,6 @@ public class RecipeDB {
         this.mealID = mealID;
         this.isVegan = isVegan;
         this.isVegetarian = isVegetarian;
-        this.ingredientListID = ingredientListID;
     }
 
     //Getter and Setter methods
@@ -101,14 +99,6 @@ public class RecipeDB {
         this.isVegetarian = isVegetarian;
     }
 
-    public int getIngredientListID() {
-        return ingredientListID;
-    }
-
-    public void setIngredientListID(int ingredientListID) {
-        this.ingredientListID = ingredientListID;
-    }
-
     public void setId(int rid) {
     }
 
@@ -122,8 +112,7 @@ public class RecipeDB {
                 "Kommentar: " + userComment + "\n" +
                 "Mahlzeit-ID: " + mealID + "\n" +
                 "Ist vegan: " + isVegan + "\n" +
-                "Ist vegetarisch: " + isVegetarian + "\n" +
-                "Zutatenliste-ID: " + ingredientListID;
+                "Ist vegetarisch: " + isVegetarian + "\n";
     }
 
 }

@@ -164,6 +164,22 @@ public class RecipeDAOImpl implements RecipeDAO {
         return recipes;
     }
 
+    public int getNextRecipeId() {
+        try (PreparedStatement statement = connection.prepareStatement("SELECT MAX(RID) FROM Recipe")) {
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int maxRecipeId = resultSet.getInt(1);
+                return maxRecipeId + 1;
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            // Fehler beim Abrufen der RID
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
     @Override
     public void addRecipe(RecipeDB recipe) {
         try {

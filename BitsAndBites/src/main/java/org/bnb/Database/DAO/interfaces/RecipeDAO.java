@@ -7,6 +7,8 @@ import java.util.List;
 public interface RecipeDAO {
     List<RecipeDB> getAllRecipes();
 
+    int getNextRecipeId();
+
     RecipeDB getRecipeById(int recipeId);
 
     List<RecipeDB> getRecipeByLvl(int recipeLvl);

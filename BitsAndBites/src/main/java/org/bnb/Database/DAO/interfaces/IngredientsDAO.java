@@ -9,6 +9,8 @@ public interface IngredientsDAO {
 
     List<IngredientsDB> getAllIngredients();
 
+    int getOrInsertIngredientId(String ingredientName);
+
     void addIngredients(IngredientsDB ingredientsDB);
 
     void updateIngredients(IngredientsDB ingredientsDB);
