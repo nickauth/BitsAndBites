@@ -25,7 +25,7 @@ public class IngredientsListDAOImpl implements IngredientsListDAO {
             if (resultSet.next()) {
                 IngredientsListDB ingredientsListDB = new IngredientsListDB();
                 ingredientsListDB.setId(resultSet.getInt("ID"));
-                ingredientsListDB.setListID(resultSet.getInt("ListID"));
+                //ingredientsListDB.setListID(resultSet.getInt("ListID"));
                 ingredientsListDB.setIngredientID(resultSet.getInt("IngredientID"));
                 ingredientsListDB.setRecipeID(resultSet.getInt("RecipeID"));
                 ingredientsListDB.setAmount(resultSet.getDouble("Amount"));
@@ -48,7 +48,7 @@ public class IngredientsListDAOImpl implements IngredientsListDAO {
             while (resultSet.next()) {
                 IngredientsListDB ingredientsListDB = new IngredientsListDB();
                 ingredientsListDB.setId(resultSet.getInt("ID"));
-                ingredientsListDB.setListID(resultSet.getInt("ListID"));
+                //ingredientsListDB.setListID(resultSet.getInt("ListID"));
                 ingredientsListDB.setIngredientID(resultSet.getInt("IngredientID"));
                 ingredientsListDB.setRecipeID(resultSet.getInt("RecipeID"));
                 ingredientsListDB.setAmount(resultSet.getDouble("Amount"));
@@ -70,7 +70,7 @@ public class IngredientsListDAOImpl implements IngredientsListDAO {
             while (resultSet.next()) {
                 IngredientsListDB ingredientsListDB = new IngredientsListDB();
                 ingredientsListDB.setId(resultSet.getInt("ID"));
-                ingredientsListDB.setListID(resultSet.getInt("ListID"));
+                //ingredientsListDB.setListID(resultSet.getInt("ListID"));
                 ingredientsListDB.setIngredientID(resultSet.getInt("IngredientID"));
                 ingredientsListDB.setRecipeID(resultSet.getInt("RecipeID"));
                 ingredientsListDB.setAmount(resultSet.getDouble("Amount"));
@@ -88,7 +88,7 @@ public class IngredientsListDAOImpl implements IngredientsListDAO {
         String query = "INSERT INTO IngredientsList (ID, /* weitere Spalten */) VALUES (?, /* weitere Werte */)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, ingredientsListDB.getId());
-            preparedStatement.setInt(2, ingredientsListDB.getListID());
+            //preparedStatement.setInt(2, ingredientsListDB.getListID());
             preparedStatement.setInt(3, ingredientsListDB.getIngredientID());
             preparedStatement.setInt(4, ingredientsListDB.getRecipeID());
             preparedStatement.setDouble(5, ingredientsListDB.getAmount());
@@ -129,7 +129,7 @@ public class IngredientsListDAOImpl implements IngredientsListDAO {
     private IngredientsListDB extractIngredientsListFromResultSet(ResultSet resultSet) throws SQLException {
         IngredientsListDB ingredientsListDB = new IngredientsListDB();
         ingredientsListDB.setId(resultSet.getInt("ID"));
-        ingredientsListDB.setListID(resultSet.getInt("ListID"));
+        //ingredientsListDB.setListID(resultSet.getInt("ListID"));
         ingredientsListDB.setIngredientID(resultSet.getInt("IngredientID"));
         ingredientsListDB.setRecipeID(resultSet.getInt("RecipeID"));
         ingredientsListDB.setAmount(resultSet.getDouble("Amount"));

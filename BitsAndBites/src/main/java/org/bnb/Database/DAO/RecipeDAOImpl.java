@@ -192,7 +192,7 @@ public class RecipeDAOImpl implements RecipeDAO {
             preparedStatement.setInt(6, recipe.getMealID());
             preparedStatement.setInt(7, recipe.getIsVegan());
             preparedStatement.setInt(8, recipe.getIsVegetarian());
-            preparedStatement.setInt(9, recipe.getIngredientListID());
+            //preparedStatement.setInt(9, recipe.getIngredientListID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -211,7 +211,7 @@ public class RecipeDAOImpl implements RecipeDAO {
             preparedStatement.setInt(6, recipe.getMealID());
             preparedStatement.setInt(7, recipe.getIsVegan());
             preparedStatement.setInt(8, recipe.getIsVegetarian());
-            preparedStatement.setInt(9, recipe.getIngredientListID());
+            //preparedStatement.setInt(9, recipe.getIngredientListID());
             preparedStatement.setInt(10, recipe.getRid());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -241,7 +241,7 @@ public class RecipeDAOImpl implements RecipeDAO {
         recipe.setMealID(resultSet.getInt("MealID"));
         recipe.setIsVegan(resultSet.getInt("IsVegan"));
         recipe.setIsVegetarian(resultSet.getInt("IsVegetarian"));
-        recipe.setIngredientListID(resultSet.getInt("IngredientListID"));
+        //recipe.setIngredientListID(resultSet.getInt("IngredientListID"));
         // Setzen Sie hier die restlichen Eigenschaften des Rezepts entsprechend der Spalten in der Datenbank
         return recipe;
     }
