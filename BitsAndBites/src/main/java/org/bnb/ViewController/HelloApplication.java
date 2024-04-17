@@ -60,7 +60,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("src/main/resources/org/bnb/viewcontroller/mainView.fxml"));
             Parent root = loader.load();
             Scene mainScene = new Scene(root);
             stage.setScene(mainScene);
